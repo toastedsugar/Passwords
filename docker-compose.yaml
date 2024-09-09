@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/src  # Map your local source code to the container
+      - /root/.nuget/packages  # Cache nuget packages
+    ports:
+      - "8000:80"  # Map port 5000 on the host to port 80 on the container
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    command: ["dotnet", "watch", "run", "--urls", "http://0.0.0.0:80"]
